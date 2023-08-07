@@ -3,9 +3,14 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="WikiHop App Landing Page">
-  <main class="px-8 lt-xs:px-4 max-w-3xl mx-auto">
-    <h1 class="text-3xl text-center">WikiHop</h1>
-    <p>Some details about the app here.</p>
-    <p>Available on iPhone, iPad, and Mac</p>
+  <main class="text-lg px-8 lt-xs:px-4 max-w-3xl mx-auto">
+    <h1 class="text-5xl font-bold text-center m-12">WikiHop</h1>
+    <div class="flex justify-center flex-col items-center gap-2">
+      <p>Available on iPhone, iPad, and Mac</p>
+      <!-- TODO: replace with real link once published -->
+      <a class="inline-block" href="https://apps.apple.com/us/">
+        <img class="m-0" src="/app-store-button-ios.svg" />
+      </a>
+    </div>
   </main>
 </Layout>
