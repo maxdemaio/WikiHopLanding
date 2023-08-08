@@ -20,6 +20,17 @@ const mostRecentTo: string | null = challenge.data
   main {
     z-index: 1;
   }
+
+  /* Define the initial scale for the image */
+  .grow-on-hover {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Apply the scale transformation on hover */
+  .grow-on-hover:hover {
+    transform: scale(1.1);
+  }
+
   /* Rm our animations for users who have reduced motion preference setting */
   @media screen and (prefers-reduced-motion: reduce) {
     .animate {
@@ -71,7 +82,7 @@ const mostRecentTo: string | null = challenge.data
         <!-- TODO: replace with real link once published -->
         <a href="https://apps.apple.com/us/">
           <img
-            class="w-[180px] drop-shadow-2xl"
+            class="grow-on-hover w-[180px] drop-shadow-2xl"
             src="/app-store.svg"
             alt="Apple App Store Link"
           />
