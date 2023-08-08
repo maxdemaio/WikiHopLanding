@@ -6,7 +6,7 @@
   .glow-element {
     display: inline-block;
     position: relative;
-    transition: transform 0.5s ease-in-out, color 0.5s ease-in-out;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
     z-index: 1; /* Ensure the text appears above the pseudo-element */
   }
 
@@ -14,8 +14,8 @@
   .glow-element::before {
     content: "";
     position: absolute;
-    top: -25px; /* Adjust the positioning to your preference */
-    left: -25px; /* Adjust the positioning to your preference */
+    top: -25px; /* Adjust the positioning to preference */
+    left: -25px; /* Adjust the positioning to preference */
     width: calc(100% + 50px); /* Increase the width for a larger circle */
     height: calc(100% + 50px); /* Increase the height for a larger circle */
     background: radial-gradient(
@@ -43,20 +43,20 @@
   }
 </style>
 
-<nav class="sm:px-4 text-lg flex justify-around p-8">
+<nav class="sm:px-4 text-lg flex justify-around pt-10">
   <div class="glow-container font-bold">
-    <a class="px-8 glow-element" href="/">WikiHop</a>
+    <a class="px-4 glow-element" href="/">WikiHop</a>
   </div>
   <div class="flex-1"></div>
   <div class="glow-container">
     <a
-      class="px-8 glow-element underline underline-offset-4"
+      class="px-4 glow-element underline underline-offset-4"
       href="https://github.com/maxdemaio/WikiHopLanding">Landing</a
     >
   </div>
   <div class="glow-container">
     <a
-      class="px-8 glow-element underline underline-offset-4"
+      class="px-4 glow-element underline underline-offset-4"
       href="https://github.com/boek/WikiHop">App</a
     >
   </div>
