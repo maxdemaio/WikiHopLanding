@@ -38,15 +38,25 @@ import Navbar from "../components/Navbar.astro";
 </html>
 
 <script>
+  interface Particle {
+    radius: number;
+    x: number;
+    y: number;
+    color: string;
+    speedx: number;
+    speedy: number;
+    move: () => void;
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
-    window.requestAnimFrame = (function () {
+    const requestAnimFrame = (function () {
       return (
         window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame ||
         window.oRequestAnimationFrame ||
         window.msRequestAnimationFrame ||
-        function (/* function */ callback) {
+        function (callback: FrameRequestCallback) {
           window.setTimeout(callback, 1000 / 60);
         }
       );
@@ -87,78 +97,81 @@ import Navbar from "../components/Navbar.astro";
     }
 
     var particle_count = 70,
-      particles = [],
+      particles: Particle[] = [],
       colors = ["#27374D", "#526D82", "#9DB2BF", "#DDE6ED"];
-    function Particle() {
-      this.radius = Math.round(Math.random() * 3 + 5);
-      this.x = Math.floor(
+
+    function createParticle(): Particle {
+      const radius = Math.round(Math.random() * 3 + 5);
+      let x = Math.floor(
         Math.random() *
           (+getComputedStyle(canvas).getPropertyValue("width").slice(0, -2) *
             dpi -
-            this.radius +
+            radius +
             1) +
-          this.radius
+          radius
       );
-      this.y = Math.floor(
+
+      let y = Math.floor(
         Math.random() *
           (+getComputedStyle(canvas).getPropertyValue("height").slice(0, -2) *
             dpi -
-            this.radius +
+            radius +
             1) +
-          this.radius
+          radius
       );
-      this.color = colors[Math.floor(Math.random() * colors.length)];
-      this.speedx = Math.round(Math.random() * 201 + 0) / 100;
-      this.speedy = Math.round(Math.random() * 201 + 0) / 100;
+
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      let speedx = Math.round(Math.random() * 201 + 0) / 100;
+      let speedy = Math.round(Math.random() * 201 + 0) / 100;
 
       switch (Math.round(Math.random() * colors.length)) {
         case 1:
-          this.speedx *= 1;
-          this.speedy *= 1;
+          speedx *= 1;
+          speedy *= 1;
           break;
         case 2:
-          this.speedx *= -1;
-          this.speedy *= 1;
+          speedx *= -1;
+          speedy *= 1;
           break;
         case 3:
-          this.speedx *= 1;
-          this.speedy *= -1;
+          speedx *= 1;
+          speedy *= -1;
           break;
         case 4:
-          this.speedx *= -1;
-          this.speedy *= -1;
+          speedx *= -1;
+          speedy *= -1;
           break;
       }
 
-      this.move = function () {
+      function move() {
         context.beginPath();
         context.globalCompositeOperation = "source-over";
-        context.fillStyle = this.color;
+        context.fillStyle = color;
         context.globalAlpha = 1;
-        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        context.arc(x, y, radius, 0, Math.PI * 2, false);
         context.fill();
         context.closePath();
 
-        this.x = this.x + this.speedx;
-        this.y = this.y + this.speedy;
+        x = x + speedx;
+        y = y + speedy;
 
-        if (this.x <= 0 + this.radius) {
-          this.speedx *= -1;
+        if (x <= 0 + radius) {
+          speedx *= -1;
         }
-        if (this.x >= canvas.width - this.radius) {
-          this.speedx *= -1;
+        if (x >= canvas.width - radius) {
+          speedx *= -1;
         }
-        if (this.y <= 0 + this.radius) {
-          this.speedy *= -1;
+        if (y <= 0 + radius) {
+          speedy *= -1;
         }
-        if (this.y >= canvas.height - this.radius) {
-          this.speedy *= -1;
+        if (y >= canvas.height - radius) {
+          speedy *= -1;
         }
 
         for (var j = 0; j < particle_count; j++) {
           var currParticle = particles[j],
-            yd = currParticle.y - this.y,
-            xd = currParticle.x - this.x,
+            yd = currParticle.y - y,
+            xd = currParticle.x - x,
             d = Math.sqrt(xd * xd + yd * yd);
 
           if (d < 200) {
@@ -166,19 +179,32 @@ import Navbar from "../components/Navbar.astro";
             context.globalAlpha = (200 - d) / (200 - 0);
             context.globalCompositeOperation = "destination-over";
             context.lineWidth = 1;
-            context.moveTo(this.x, this.y);
+            context.moveTo(x, y);
             context.lineTo(currParticle.x, currParticle.y);
-            context.strokeStyle = this.color;
+            context.strokeStyle = color;
             context.lineCap = "round";
             context.stroke();
             context.closePath();
           }
         }
+      }
+
+      const particle: Particle = {
+        radius: radius,
+        x: x,
+        y: y,
+        color: color,
+        speedx: speedx,
+        speedy: speedy,
+        move: move,
       };
+
+      return particle;
     }
+
     for (var i = 0; i < particle_count; i++) {
       fix_dpi();
-      var particle = new Particle();
+      var particle: Particle = createParticle();
       particles.push(particle);
     }
 
