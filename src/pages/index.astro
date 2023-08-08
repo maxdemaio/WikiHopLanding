@@ -42,7 +42,7 @@ const mostRecentTo: string | null = challenge.data
     }
   }
 
-  .animate.pop {
+  .animate {
     animation-name: animate-pop;
     animation-timing-function: cubic-bezier(0.26, 0.53, 0.74, 1.48);
   }
@@ -58,18 +58,6 @@ const mostRecentTo: string | null = challenge.data
       transform: scale(1, 1);
     }
   }
-
-  .delay-1 {
-    animation-delay: 0.6s;
-  }
-
-  .delay-2 {
-    animation-delay: 0.7s;
-  }
-
-  .delay-3 {
-    animation-delay: 0.8s;
-  }
 </style>
 
 <Layout title="WikiHop App Landing Page">
@@ -78,7 +66,7 @@ const mostRecentTo: string | null = challenge.data
       <h1 class="sm:text-8xl text-6xl font-bold text-center mt-8 mb-6">
         WikiHop
       </h1>
-      <div class="animate pop flex justify-center flex-col items-center">
+      <div class="animate flex justify-center flex-col items-center">
         <p class="text-center sm:text-2xl text-xl mb-4 text-neutral-400">
           Some really cool description here. Available on iPhone, iPad, and Mac.
         </p>
@@ -96,22 +84,25 @@ const mostRecentTo: string | null = challenge.data
     <!-- SLAP IN AN IPHONE -->
     {
       mostRecentFrom && mostRecentTo ? (
-        <div class="text-center animate pop">
+        <div class="text-center animate">
           <h2 class="sm:text-6xl text-4xl font-bold mb-6">Latest Challenge</h2>
 
           <p id="wiki-para">
             WikiHop from{" "}
-            <span id="span-1" class="font-bold">
+            <a
+              href={"https://en.wikipedia.org/wiki/" + mostRecentFrom}
+              class="font-bold text-[#9DB2BF] hover:text-[#DDE6ED] underline underline-offset-4 transition duration-300 ease-in-out"
+            >
               {mostRecentFrom}
-            </span>
+            </a>
             to{" "}
-            <span id="span-2" class="font-bold">
+            <a
+              href={"https://en.wikipedia.org/wiki/" + mostRecentTo}
+              class="font-bold text-[#9DB2BF] hover:text-[#DDE6ED] underline underline-offset-4 transition duration-300 ease-in-out"
+            >
               {mostRecentTo}
-            </span>
+            </a>
           </p>
-          <svg class="line">
-            <line x1="0" y1="0" x2="0" y2="0" />
-          </svg>
         </div>
       ) : null
     }
