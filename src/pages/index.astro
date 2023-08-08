@@ -3,20 +3,20 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="WikiHop App Landing Page">
-  <main class="text-lg px-8 lt-xs:px-4 max-w-3xl mx-auto">
-    <h1 class="text-5xl font-bold text-center m-12">WikiHop</h1>
-    <div class="flex justify-center">
-      <h2 class="text-3xl">Today's Challenge</h2>
-      <p>
-        WikiHop from <span>X</span> to <span>Y</span>
-      </p>
-    </div>
-    <div class="flex gap-2 justify-center flex-col items-center">
-      <p>Available on iPhone, iPad, and Mac</p>
-      <!-- TODO: replace with real link once published -->
-      <a class="inline-block" href="https://apps.apple.com/us/">
-        <img class="m-0" src="/app-store-button-ios.svg" />
-      </a>
-    </div>
+  <main
+    class="text-lg px-8 lt-xs:px-4 max-w-4xl mx-auto flex justify-center flex-col items-center"
+  >
+    <h1 class="text-8xl font-bold text-center m-8">WikiHop</h1>
+    <p class="text-2xl mb-4 text-neutral-400">
+      Some really cool description here. Available on iPhone, iPad, and Mac.
+    </p>
+    <!-- TODO: replace with real link once published -->
+    <a class="inline-block mb-12" href="https://apps.apple.com/us/">
+      <img class="m-0" src="/app-store-button-ios.svg" />
+    </a>
+    <h2 class="text-3xl">Today's Challenge</h2>
+    <p>
+      WikiHop from <span>X</span> to <span>Y</span>
+    </p>
   </main>
 </Layout>

@@ -4,6 +4,7 @@ interface Props {
 }
 
 const { title } = Astro.props;
+import Navbar from "../components/Navbar.astro";
 ---
 
 <!DOCTYPE html>
@@ -19,6 +20,7 @@ const { title } = Astro.props;
   <body
     class="bg-gradient-to-b from-black to-neutral-800 min-h-screen text-white"
   >
+    <Navbar />
     <slot />
   </body>
 </html>
