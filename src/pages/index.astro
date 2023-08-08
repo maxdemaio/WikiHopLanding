@@ -7,7 +7,7 @@ const challenge = await getChallenge(Astro.request);
 ---
 
 <Layout title="WikiHop App Landing Page">
-  {challenge.data[0].created_at}
+  {challenge.data ? challenge.data[0].created_at : null}
   <main
     class="text-lg px-8 lt-xs:px-4 max-w-4xl mx-auto flex justify-center flex-col items-center"
   >
