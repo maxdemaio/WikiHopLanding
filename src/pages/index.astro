@@ -1,16 +1,35 @@
 ---
+import type { PostgrestSingleResponse } from "@supabase/supabase-js";
 import type { Database } from "../../database.types";
 import Layout from "../layouts/Layout.astro";
 import { getChallenge } from "../supa";
 
-const challenge = await getChallenge(Astro.request);
+interface Challenge {
+  created_at: string;
+  from: string;
+  id: string;
+  is_approved: boolean;
+  published_at: string | null;
+  to: string;
+}
+
+const challenge: PostgrestSingleResponse<Challenge[]> = await getChallenge(
+  Astro.request
+);
+
+const mostRecentFrom: string | null = challenge.data
+  ? challenge.data[0].from
+  : null;
+const mostRecentTo: string | null = challenge.data
+  ? challenge.data[0].to
+  : null;
 ---
 
 <Layout title="WikiHop App Landing Page">
   <main
-    class="text-lg px-8 lt-xs:px-4 max-w-4xl mx-auto flex justify-center flex-col items-center"
+    class="sm:px-4 px-8 text-lg max-w-4xl mx-auto flex justify-center flex-col items-center"
   >
-    <h1 class="text-8xl font-bold text-center m-8">WikiHop</h1>
+    <h1 class="sm:text-8xl text-6xl font-bold text-center m-8">WikiHop</h1>
     <p class="text-2xl mb-4 text-neutral-400">
       Some really cool description here. Available on iPhone, iPad, and Mac.
     </p>
@@ -19,17 +38,17 @@ const challenge = await getChallenge(Astro.request);
       <img class="w-40 drop-shadow-lg" src="/app-store-button-ios.svg" />
     </a>
     <!-- SLAP IN AN IPHONE -->
-    <h2 class="text-3xl">Latest Challenge</h2>
+    {
+      mostRecentFrom && mostRecentTo ? (
+        <>
+          <h2 class="sm:text-3xl text-xl">Latest Challenge</h2>
 
-    <blockquote>
-      WikiHop from <span class="font-bold"
-        >{challenge.data ? challenge.data[0].from : null}</span
-      >
-      to <span class="font-bold"
-        >{challenge.data ? challenge.data[0].to : null}</span
-      >
-    </blockquote>
+          <blockquote class="text-center">
+            WikiHop from <span class="font-bold">{mostRecentFrom}</span>
+            to <span class="font-bold">{mostRecentTo}</span>
+          </blockquote>
+        </>
+      ) : null
+    }
   </main>
 </Layout>
-
-<style></style>
