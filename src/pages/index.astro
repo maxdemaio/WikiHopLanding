@@ -7,7 +7,6 @@ const challenge = await getChallenge(Astro.request);
 ---
 
 <Layout title="WikiHop App Landing Page">
-  {challenge.data ? challenge.data[0].created_at : null}
   <main
     class="text-lg px-8 lt-xs:px-4 max-w-4xl mx-auto flex justify-center flex-col items-center"
   >
@@ -20,9 +19,17 @@ const challenge = await getChallenge(Astro.request);
       <img class="w-40 drop-shadow-lg" src="/app-store-button-ios.svg" />
     </a>
     <!-- SLAP IN AN IPHONE -->
-    <h2 class="text-3xl">Today's Challenge</h2>
-    <p>
-      WikiHop from <span>X</span> to <span>Y</span>
-    </p>
+    <h2 class="text-3xl">Latest Challenge</h2>
+
+    <blockquote>
+      WikiHop from <span class="font-bold"
+        >{challenge.data ? challenge.data[0].from : null}</span
+      >
+      to <span class="font-bold"
+        >{challenge.data ? challenge.data[0].to : null}</span
+      >
+    </blockquote>
   </main>
 </Layout>
+
+<style></style>
