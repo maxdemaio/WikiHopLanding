@@ -1,19 +1,64 @@
+<style>
+  .glow-container {
+    position: relative;
+  }
+  /* Define the initial styles for the element */
+  .glow-element {
+    display: inline-block;
+    position: relative;
+    transition: transform 0.5s ease-in-out, color 0.5s ease-in-out;
+    z-index: 1; /* Ensure the text appears above the pseudo-element */
+  }
+
+  /* Pseudo-element for the radial frayed background blur */
+  .glow-element::before {
+    content: "";
+    position: absolute;
+    top: -25px; /* Adjust the positioning to your preference */
+    left: -25px; /* Adjust the positioning to your preference */
+    width: calc(100% + 50px); /* Increase the width for a larger circle */
+    height: calc(100% + 50px); /* Increase the height for a larger circle */
+    background: radial-gradient(
+      circle,
+      rgba(150, 150, 150, 0.5) 0%,
+      rgba(150, 150, 150, 0.2) 45%,
+      transparent 80%
+    ); /* Adjust colors and stops for the frayed effect */
+    border-radius: 50%;
+    filter: blur(15px); /* Adjust the blur radius as needed */
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    z-index: -1; /* Place the pseudo-element behind the text */
+  }
+
+  /* Show the radial frayed background blur and change font color on hover */
+  .glow-container:hover .glow-element::before {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .glow-container:hover .glow-element {
+    color: white; /* Ending font color on hover */
+  }
+</style>
+
 <nav
-  class="sm:px-4 sm:space-x-10 px-2 space-x-4 text-lg flex justify-around p-4"
+  class="sm:px-4 sm:space-x-10 space-x-4 text-lg flex justify-around pt-6 pb-8"
 >
-  <div class="font-bold">
-    <a href="/">WikiHop</a>
+  <div class="glow-container font-bold">
+    <a class="glow-element" href="/">WikiHop</a>
   </div>
   <div class="flex-1"></div>
-  <div>
+  <div class="glow-container">
     <a
-      class="underline underline-offset-4"
+      class="glow-element underline underline-offset-4"
       href="https://github.com/maxdemaio/WikiHopLanding">Landing</a
     >
   </div>
-  <div>
+  <div class="glow-container">
     <a
-      class="underline underline-offset-4"
+      class="glow-element underline underline-offset-4"
       href="https://github.com/boek/WikiHop">App</a
     >
   </div>
