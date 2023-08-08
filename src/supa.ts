@@ -7,10 +7,8 @@ export const supabase = createClient<Database>(
 );
 
 export async function getChallenge(req: Request) {
-  const today = new Date();
   // sort descending based on published date
   // then grab the top most row
-  // .eq("created_at", today)
   return await supabase
     .from("challenges")
     .select()

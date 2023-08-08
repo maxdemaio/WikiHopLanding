@@ -1,6 +1,5 @@
 ---
 import type { PostgrestSingleResponse } from "@supabase/supabase-js";
-import type { Database } from "../../database.types";
 import Layout from "../layouts/Layout.astro";
 import { getChallenge } from "../supa";
 
@@ -27,7 +26,7 @@ const mostRecentTo: string | null = challenge.data
 
 <Layout title="WikiHop App Landing Page">
   <main class="sm:px-4 px-8 text-lg max-w-4xl mx-auto">
-    <div class="flex justify-center flex-col items-center mb-8">
+    <div class="flex justify-center flex-col items-center mb-20">
       <h1 class="sm:text-8xl text-6xl font-bold text-center mt-8 mb-6">
         WikiHop
       </h1>
@@ -35,10 +34,11 @@ const mostRecentTo: string | null = challenge.data
         Some really cool description here. Available on iPhone, iPad, and Mac.
       </p>
       <!-- TODO: replace with real link once published -->
-      <a class="inline-block mb-12" href="https://apps.apple.com/us/">
+      <a href="https://apps.apple.com/us/">
         <img
-          class="sm:w-50 w-40 shadow-lg hover:shadow-2xl"
-          src="/app-store-button-ios.svg"
+          class="w-[180px] drop-shadow-2xl"
+          src="/app-store.svg"
+          alt="Apple App Store Link"
         />
       </a>
     </div>
@@ -46,13 +46,13 @@ const mostRecentTo: string | null = challenge.data
     <!-- SLAP IN AN IPHONE -->
     {
       mostRecentFrom && mostRecentTo ? (
-        <div class="flex justify-center flex-col items-center">
+        <div class="text-center">
           <h2 class="sm:text-6xl text-4xl font-bold mb-6">Latest Challenge</h2>
 
-          <div class="text-center">
+          <p>
             WikiHop from <span class="font-bold">{mostRecentFrom}</span>
             to <span class="font-bold">{mostRecentTo}</span>
-          </div>
+          </p>
         </div>
       ) : null
     }
