@@ -1,16 +1,8 @@
 ---
 import type { PostgrestSingleResponse } from "@supabase/supabase-js";
+import type { Challenge } from "../supa";
 import Layout from "../layouts/Layout.astro";
 import { getChallenge } from "../supa";
-
-interface Challenge {
-  created_at: string;
-  from: string;
-  id: string;
-  is_approved: boolean;
-  published_at: string | null;
-  to: string;
-}
 
 const challenge: PostgrestSingleResponse<Challenge[]> = await getChallenge(
   Astro.request
