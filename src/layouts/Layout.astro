@@ -107,6 +107,7 @@ import Navbar from "../components/Navbar.astro";
 
     function createParticle(): Particle {
       // Get the canvas dimensions
+      // Sometimes these come up as NaN on Safari
       let canvasWidth = parseInt(
         getComputedStyle(canvas).getPropertyValue("width")
       );
@@ -114,6 +115,7 @@ import Navbar from "../components/Navbar.astro";
         getComputedStyle(canvas).getPropertyValue("height")
       );
 
+      // Fallback values for Safari
       if (!canvasWidth) {
         canvasWidth = canvas.width / 2;
       }
