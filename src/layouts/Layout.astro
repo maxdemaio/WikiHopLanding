@@ -49,13 +49,15 @@ import Navbar from "../components/Navbar.astro";
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    /* 
+      IIFE - Immediately Invoked Function Expression
+      Determine and assign the appropriate requestAnimationFrame function 
+      (or a suitable fallback) to the requestAnimFrame variable
+      before the rest of the script runs.
+    */
     const requestAnimFrame = (function () {
       return (
         window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.oRequestAnimationFrame ||
-        window.msRequestAnimationFrame ||
         function (callback: FrameRequestCallback) {
           window.setTimeout(callback, 1000 / 60);
         }
@@ -76,6 +78,10 @@ import Navbar from "../components/Navbar.astro";
       return;
     }
 
+    var particle_count = 70,
+      particles: Particle[] = [],
+      colors = ["#27374D", "#526D82", "#9DB2BF", "#DDE6ED"];
+
     // Get DPI
     let dpi: number = window.devicePixelRatio || 1;
     context.scale(dpi, dpi);
@@ -95,10 +101,6 @@ import Navbar from "../components/Navbar.astro";
       canvas.setAttribute("height", (style_height * dpi).toString());
       canvas.setAttribute("width", (style_width * dpi).toString());
     }
-
-    var particle_count = 70,
-      particles: Particle[] = [],
-      colors = ["#27374D", "#526D82", "#9DB2BF", "#DDE6ED"];
 
     function createParticle(): Particle {
       const radius = Math.round(Math.random() * 3 + 5);
@@ -202,12 +204,16 @@ import Navbar from "../components/Navbar.astro";
       return particle;
     }
 
-    for (var i = 0; i < particle_count; i++) {
-      fix_dpi();
-      var particle: Particle = createParticle();
-      particles.push(particle);
-    }
+    /*
+      Core of the particle animation:
+      It's designed to be called repeatedly to update 
+      the animation frame by frame.
 
+      We invoke it once at the end of the script using animate().
+      This starts the animation loop, causing the animation to begin.
+      As the animation loop iterates, the animate function will be called repeatedly, 
+      creating the appearance of smooth particle movement on the canvas.
+    */
     function animate() {
       fix_dpi();
       context.clearRect(0, 0, canvas.width, canvas.height);
@@ -217,6 +223,19 @@ import Navbar from "../components/Navbar.astro";
       requestAnimFrame(animate);
     }
 
+    for (var i = 0; i < particle_count; i++) {
+      fix_dpi();
+      var particle: Particle = createParticle();
+      particles.push(particle);
+    }
+
+    /*
+      Overall, the combination of the custom requestAnimFrame function 
+      and the animate function (called continuously) 
+      makes an animation loop that updates the positions of particles 
+      and redraws them on the canvas. 
+      This results in the animation you see on the screen.
+    */
     animate();
   });
 </script>
