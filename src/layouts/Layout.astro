@@ -118,10 +118,10 @@ import Navbar from "../components/Navbar.astro";
 
       // Fallback values for Safari
       if (!canvasWidth) {
-        canvasWidth = canvas.width;
+        canvasWidth = window.innerWidth;
       }
       if (!canvasHeight) {
-        canvasHeight = canvas.height;
+        canvasHeight = window.innerHeight;
       }
 
       const radius = Math.round(Math.random() * 3 + 5);
