@@ -107,8 +107,14 @@ import Navbar from "../components/Navbar.astro";
     }
 
     function createParticle(): Particle {
-      // Get the canvas dimensions
-      // Sometimes these come up as NaN on Safari
+      /* 
+        Get the canvas dimensions
+        Sometimes these come up as NaN on Safari.
+        The canvas width is defined as a percentage of its parent 
+        container's width, the computed width might not be a 
+        specific pixel value. Instead, it could be calculated based 
+        on the parent's dimensions.
+      */
       let canvasWidth = parseInt(
         getComputedStyle(canvas).getPropertyValue("width")
       );
