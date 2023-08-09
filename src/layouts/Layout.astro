@@ -81,6 +81,7 @@ import Navbar from "../components/Navbar.astro";
       return;
     }
 
+    // https://colorhunt.co/palette/27374d526d829db2bfdde6ed
     var particle_count = 70,
       particles: Particle[] = [],
       colors = ["#27374D", "#526D82", "#9DB2BF", "#DDE6ED"];
@@ -117,10 +118,10 @@ import Navbar from "../components/Navbar.astro";
 
       // Fallback values for Safari
       if (!canvasWidth) {
-        canvasWidth = canvas.width / 2;
+        canvasWidth = canvas.width;
       }
       if (!canvasHeight) {
-        canvasHeight = canvas.height / 2;
+        canvasHeight = canvas.height;
       }
 
       const radius = Math.round(Math.random() * 3 + 5);
