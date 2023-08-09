@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "ChikareGo2";
+  src: url("/ChikareGo2.woff2") format("woff2"),
+    url("/ChikareGo2.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
