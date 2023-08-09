@@ -8,17 +8,6 @@ import Navbar from "../components/Navbar.astro";
 ---
 
 <style is:global>
-  @font-face {
-    font-family: "ChiKareGo2";
-    src: url("/ChiKareGo2.woff2") format("woff2"),
-      url("/ChiKareGo2.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
-
-  .chikare {
-    font-family: "ChiKareGo2", sans-serif;
-  }
   #canvas {
     position: fixed;
     top: 0;
@@ -41,8 +30,6 @@ import Navbar from "../components/Navbar.astro";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <link rel="preload" href="/ChiKareGo2.woff2" as="font" type="font/woff2" />
-    <link rel="preload" href="/ChiKareGo2.woff" as="font" type="font/woff" />
   </head>
   <body
     class="bg-gradient-to-b from-black to-neutral-800 min-h-screen text-neutral-100"
