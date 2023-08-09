@@ -48,173 +48,175 @@ import Navbar from "../components/Navbar.astro";
     move: () => void;
   }
 
-  const requestAnimFrame = (function () {
-    return (
-      window.requestAnimationFrame ||
-      window.webkitRequestAnimationFrame ||
-      window.mozRequestAnimationFrame ||
-      window.oRequestAnimationFrame ||
-      window.msRequestAnimationFrame ||
-      function (callback: FrameRequestCallback) {
-        window.setTimeout(callback, 1000 / 60);
-      }
-    );
-  })();
+  document.addEventListener("DOMContentLoaded", function () {
+    const requestAnimFrame = (function () {
+      return (
+        window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (callback: FrameRequestCallback) {
+          window.setTimeout(callback, 1000 / 60);
+        }
+      );
+    })();
 
-  var canvas = document.getElementById("canvas") as HTMLCanvasElement;
+    var canvas = document.getElementById("canvas") as HTMLCanvasElement;
 
-  if (!canvas) {
-    console.error("Canvas element not found!");
-    return;
-  }
-
-  var context = canvas.getContext("2d");
-
-  if (!context) {
-    console.error("Context not found!");
-    return;
-  }
-
-  // Get DPI
-  let dpi: number = window.devicePixelRatio || 1;
-  context.scale(dpi, dpi);
-
-  function fix_dpi() {
-    // Get CSS height
-    // The "+"" prefix casts it to an integer
-    // The slice method gets rid of "px"
-    let style_height = +getComputedStyle(canvas)
-      .getPropertyValue("height")
-      .slice(0, -2);
-    let style_width = +getComputedStyle(canvas)
-      .getPropertyValue("width")
-      .slice(0, -2);
-
-    // Scale the canvas
-    canvas.setAttribute("height", (style_height * dpi).toString());
-    canvas.setAttribute("width", (style_width * dpi).toString());
-  }
-
-  var particle_count = 70,
-    particles: Particle[] = [],
-    colors = ["#27374D", "#526D82", "#9DB2BF", "#DDE6ED"];
-
-  function createParticle(): Particle {
-    const radius = Math.round(Math.random() * 3 + 5);
-    let x = Math.floor(
-      Math.random() *
-        (+getComputedStyle(canvas).getPropertyValue("width").slice(0, -2) *
-          dpi -
-          radius +
-          1) +
-        radius
-    );
-
-    let y = Math.floor(
-      Math.random() *
-        (+getComputedStyle(canvas).getPropertyValue("height").slice(0, -2) *
-          dpi -
-          radius +
-          1) +
-        radius
-    );
-
-    const color = colors[Math.floor(Math.random() * colors.length)];
-    let speedx = Math.round(Math.random() * 201 + 0) / 100;
-    let speedy = Math.round(Math.random() * 201 + 0) / 100;
-
-    switch (Math.round(Math.random() * colors.length)) {
-      case 1:
-        speedx *= 1;
-        speedy *= 1;
-        break;
-      case 2:
-        speedx *= -1;
-        speedy *= 1;
-        break;
-      case 3:
-        speedx *= 1;
-        speedy *= -1;
-        break;
-      case 4:
-        speedx *= -1;
-        speedy *= -1;
-        break;
+    if (!canvas) {
+      console.error("Canvas element not found!");
+      return;
     }
 
-    function move() {
-      context.beginPath();
-      context.globalCompositeOperation = "source-over";
-      context.fillStyle = color;
-      context.globalAlpha = 1;
-      context.arc(x, y, radius, 0, Math.PI * 2, false);
-      context.fill();
-      context.closePath();
+    var context = canvas.getContext("2d");
 
-      x = x + speedx;
-      y = y + speedy;
+    if (!context) {
+      console.error("Context not found!");
+      return;
+    }
 
-      if (x <= 0 + radius) {
-        speedx *= -1;
-      }
-      if (x >= canvas.width - radius) {
-        speedx *= -1;
-      }
-      if (y <= 0 + radius) {
-        speedy *= -1;
-      }
-      if (y >= canvas.height - radius) {
-        speedy *= -1;
+    // Get DPI
+    let dpi: number = window.devicePixelRatio || 1;
+    context.scale(dpi, dpi);
+
+    function fix_dpi() {
+      // Get CSS height
+      // The "+"" prefix casts it to an integer
+      // The slice method gets rid of "px"
+      let style_height = +getComputedStyle(canvas)
+        .getPropertyValue("height")
+        .slice(0, -2);
+      let style_width = +getComputedStyle(canvas)
+        .getPropertyValue("width")
+        .slice(0, -2);
+
+      // Scale the canvas
+      canvas.setAttribute("height", (style_height * dpi).toString());
+      canvas.setAttribute("width", (style_width * dpi).toString());
+    }
+
+    var particle_count = 70,
+      particles: Particle[] = [],
+      colors = ["#27374D", "#526D82", "#9DB2BF", "#DDE6ED"];
+
+    function createParticle(): Particle {
+      const radius = Math.round(Math.random() * 3 + 5);
+      let x = Math.floor(
+        Math.random() *
+          (+getComputedStyle(canvas).getPropertyValue("width").slice(0, -2) *
+            dpi -
+            radius +
+            1) +
+          radius
+      );
+
+      let y = Math.floor(
+        Math.random() *
+          (+getComputedStyle(canvas).getPropertyValue("height").slice(0, -2) *
+            dpi -
+            radius +
+            1) +
+          radius
+      );
+
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      let speedx = Math.round(Math.random() * 201 + 0) / 100;
+      let speedy = Math.round(Math.random() * 201 + 0) / 100;
+
+      switch (Math.round(Math.random() * colors.length)) {
+        case 1:
+          speedx *= 1;
+          speedy *= 1;
+          break;
+        case 2:
+          speedx *= -1;
+          speedy *= 1;
+          break;
+        case 3:
+          speedx *= 1;
+          speedy *= -1;
+          break;
+        case 4:
+          speedx *= -1;
+          speedy *= -1;
+          break;
       }
 
-      for (var j = 0; j < particle_count; j++) {
-        var currParticle = particles[j],
-          yd = currParticle.y - y,
-          xd = currParticle.x - x,
-          d = Math.sqrt(xd * xd + yd * yd);
+      function move() {
+        context.beginPath();
+        context.globalCompositeOperation = "source-over";
+        context.fillStyle = color;
+        context.globalAlpha = 1;
+        context.arc(x, y, radius, 0, Math.PI * 2, false);
+        context.fill();
+        context.closePath();
 
-        if (d < 200) {
-          context.beginPath();
-          context.globalAlpha = (200 - d) / (200 - 0);
-          context.globalCompositeOperation = "destination-over";
-          context.lineWidth = 1;
-          context.moveTo(x, y);
-          context.lineTo(currParticle.x, currParticle.y);
-          context.strokeStyle = color;
-          context.lineCap = "round";
-          context.stroke();
-          context.closePath();
+        x = x + speedx;
+        y = y + speedy;
+
+        if (x <= 0 + radius) {
+          speedx *= -1;
+        }
+        if (x >= canvas.width - radius) {
+          speedx *= -1;
+        }
+        if (y <= 0 + radius) {
+          speedy *= -1;
+        }
+        if (y >= canvas.height - radius) {
+          speedy *= -1;
+        }
+
+        for (var j = 0; j < particle_count; j++) {
+          var currParticle = particles[j],
+            yd = currParticle.y - y,
+            xd = currParticle.x - x,
+            d = Math.sqrt(xd * xd + yd * yd);
+
+          if (d < 200) {
+            context.beginPath();
+            context.globalAlpha = (200 - d) / (200 - 0);
+            context.globalCompositeOperation = "destination-over";
+            context.lineWidth = 1;
+            context.moveTo(x, y);
+            context.lineTo(currParticle.x, currParticle.y);
+            context.strokeStyle = color;
+            context.lineCap = "round";
+            context.stroke();
+            context.closePath();
+          }
         }
       }
+
+      const particle: Particle = {
+        radius: radius,
+        x: x,
+        y: y,
+        color: color,
+        speedx: speedx,
+        speedy: speedy,
+        move: move,
+      };
+
+      return particle;
     }
 
-    const particle: Particle = {
-      radius: radius,
-      x: x,
-      y: y,
-      color: color,
-      speedx: speedx,
-      speedy: speedy,
-      move: move,
-    };
-
-    return particle;
-  }
-
-  for (var i = 0; i < particle_count; i++) {
-    fix_dpi();
-    var particle: Particle = createParticle();
-    particles.push(particle);
-  }
-
-  function animate() {
-    fix_dpi();
-    context.clearRect(0, 0, canvas.width, canvas.height);
     for (var i = 0; i < particle_count; i++) {
-      particles[i].move();
+      fix_dpi();
+      var particle: Particle = createParticle();
+      particles.push(particle);
     }
-    requestAnimFrame(animate);
-  }
 
-  animate();
+    function animate() {
+      fix_dpi();
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      for (var i = 0; i < particle_count; i++) {
+        particles[i].move();
+      }
+      requestAnimFrame(animate);
+    }
+
+    animate();
+  });
 </script>
