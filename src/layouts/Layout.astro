@@ -106,23 +106,17 @@ import Navbar from "../components/Navbar.astro";
     }
 
     function createParticle(): Particle {
+      // Get the canvas dimensions
+      const canvasWidth = canvas.width / 2;
+      const canvasHeight = canvas.height / 2;
+
       const radius = Math.round(Math.random() * 3 + 5);
       let x = Math.floor(
-        Math.random() *
-          (+getComputedStyle(canvas).getPropertyValue("width").slice(0, -2) *
-            dpi -
-            radius +
-            1) +
-          radius
+        Math.random() * (canvasWidth * dpi - radius + 1) + radius
       );
 
       let y = Math.floor(
-        Math.random() *
-          (+getComputedStyle(canvas).getPropertyValue("height").slice(0, -2) *
-            dpi -
-            radius +
-            1) +
-          radius
+        Math.random() * (canvasHeight * dpi - radius + 1) + radius
       );
 
       const color = colors[Math.floor(Math.random() * colors.length)];
