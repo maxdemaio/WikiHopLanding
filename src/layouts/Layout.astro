@@ -8,6 +8,11 @@ import Navbar from "../components/Navbar.astro";
 ---
 
 <style>
+  body {
+    height: 100vh; /* Fallback for browsers that do not support custom properties */
+    height: calc(var(--vh, 1vh) * 100);
+  }
+
   #canvas {
     position: fixed;
     top: 0;
@@ -32,7 +37,7 @@ import Navbar from "../components/Navbar.astro";
     <title>{title}</title>
   </head>
   <body
-    class="bg-gradient-to-b from-black to-neutral-800 min-h-screen text-neutral-100 flex flex-col"
+    class="bg-gradient-to-b from-black to-neutral-800 text-neutral-100 flex flex-col"
   >
     <canvas id="canvas"></canvas>
     <Navbar />
@@ -52,6 +57,19 @@ import Navbar from "../components/Navbar.astro";
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+    // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+    let vh = window.innerHeight * 0.01;
+    // Then we set the value in the --vh custom property to the root of the document
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+
+    // We listen to the resize event
+    window.addEventListener("resize", () => {
+      // We execute the same script as before
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    });
+
     /* 
       IIFE - Immediately Invoked Function Expression
       Determine and assign the appropriate requestAnimationFrame function 
