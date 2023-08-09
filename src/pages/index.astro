@@ -71,13 +71,15 @@ const mostRecentTo: string | null = challenge.data
   }
 </style>
 
-<Layout title="WikiHop App Landing Page">
+<Layout title="WikiHop App">
   <main class="sm:px-4 px-8 text-lg max-w-4xl mx-auto">
-    <div class="flex justify-center flex-col items-center my-16">
+    <div class="flex justify-center flex-col items-center my-14">
       <h1 class="sm:text-8xl text-6xl font-bold text-center mb-6">WikiHop</h1>
       <div class="animate flex justify-center flex-col items-center">
         <p class="text-center sm:text-2xl text-xl mb-4 text-neutral-400">
-          Some really cool description here. Available on iPhone, iPad, and Mac.
+          Take a journey through Wikipedia with a daily challenge! Navigate from
+          one page to another using the fewest clicks in the shortest amount of
+          time.
         </p>
         <!-- TODO: replace with real link once published -->
         <a href="https://apps.apple.com/us/">
@@ -95,7 +97,7 @@ const mostRecentTo: string | null = challenge.data
         <div class="text-center animate">
           <h2 class="sm:text-6xl text-4xl font-bold mb-6">Latest Challenge</h2>
 
-          <p id="wiki-para">
+          <p class="sm:text-2xl text-xl">
             WikiHop from{" "}
             <a
               href={"https://en.wikipedia.org/wiki/" + mostRecentFrom}
