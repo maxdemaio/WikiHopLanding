@@ -107,8 +107,12 @@ import Navbar from "../components/Navbar.astro";
 
     function createParticle(): Particle {
       // Get the canvas dimensions
-      const canvasWidth = canvas.width / 2;
-      const canvasHeight = canvas.height / 2;
+      const canvasWidth = parseInt(
+        getComputedStyle(canvas).getPropertyValue("width")
+      );
+      const canvasHeight = parseInt(
+        getComputedStyle(canvas).getPropertyValue("height")
+      );
 
       const radius = Math.round(Math.random() * 3 + 5);
       let x = Math.floor(
